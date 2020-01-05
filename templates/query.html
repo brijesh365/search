@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Query{% endblock %}
+
+{% block content %}
+
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Query</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for query in queries %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>
+                            {% if query.status == 'COMPLETED' %}
+                                <a href="/search/result/{{ query.query }}">{{ query.query }}</a>
+                            {% else %}
+                                {{ query.query }}
+                            {% endif %}
+                        </td>
+                        <td>{{ query.get_status_display }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td>No queries found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

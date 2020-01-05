@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Result{% endblock %}
+
+{% block content %}
+
+    {% if results.all %}
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+            <tr>
+                {% for result in results %}
+                    <th>{{ result.engine }} <span
+                            class="badge badge-primary badge-pill">{{ result.result|length }}</span></th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {% for result in results %}
+                    <td>
+                        <ul class="list-group">
+                            {% for elements in result.result %}
+                                <li class="list-group-item list-group-item-action">{{ forloop.counter }} <a
+                                        href="{{ elements.link }}">{{ elements.link }}</a>:
+                                    {% autoescape on %}{{ elements.text }}{% endautoescape %}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                {% endfor %}
+            </tr>
+            </tbody>
+        </table>
+    {% else %}
+        No results found
+    {% endif %}
+
+
+{% endblock %}
